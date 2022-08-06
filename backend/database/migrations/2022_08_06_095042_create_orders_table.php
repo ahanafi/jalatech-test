@@ -13,16 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->enum('role', ['ADMIN', 'USER'])->default('USER');
-            $table->rememberToken();
-            $table->timestamps();
+            $table->string('invoice_number')->unique();
+            $table->string('customer_name');
+            $table->date('date');
+            $table->enum('type', ['PURCHASE', 'SALE'])->default('SALE');
+            $table->enum('status', ['PENDING', 'APPROVED'])->default('PENDING');
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('orders');
     }
 };
