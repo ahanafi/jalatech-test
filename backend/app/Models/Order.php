@@ -50,7 +50,12 @@ class Order extends Model
     public static function createSaleOrder(array $data): mixed
     {
         $data['type'] = self::SALE;
-        $data['status'] = self::PENDING;
+
+        // Order status depends on who made it
+        // If order is created by Admin, the status is directly set to approved
+        // When the order is created by the User, the order status is pending
+        $data['status'] = auth()->user()->role === User::ADMIN ? self::APPROVED : self::PENDING;
+
         return self::create($data);
     }
 
