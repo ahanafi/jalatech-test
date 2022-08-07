@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ApprovePendingSaleOrderRequest;
 use App\Http\Requests\StoreSaleOrderRequest;
 use App\Http\Resources\SaleOrderResource;
 use App\Models\DetailOrder;
@@ -30,6 +31,32 @@ class SaleOrderController extends Controller
 
             $order->load(['details']);
             return $this->handleResponse(new SaleOrderResource($order), 'The sale order was successfully created.');
+        } catch (Exception $e) {
+            return $this->handleError($e->getMessage());
+        }
+    }
+
+    /**
+     * @param ApprovePendingSaleOrderRequest $request
+     * @param Order $order
+     * @return JsonResponse
+     */
+    public function approve(ApprovePendingSaleOrderRequest $request, Order $order)
+    {
+        // Validate that the order type is SALE
+        if ($order->type !== Order::SALE) {
+            return $this->handleError('Unable to process this request because the order type is not order sale');
+        }
+
+        // Validate that the order is unapproved
+        if ($order->status === Order::APPROVED) {
+            return $this->handleError('Unable to process this request because the order has already been approved.');
+        }
+
+        try {
+            $order->updateStatus(Order::APPROVED);
+            $order->load(['details']);
+            return $this->handleResponse(new SaleOrderResource($order), 'The pending sale order has been approved by the Admin.');
         } catch (Exception $e) {
             return $this->handleError($e->getMessage());
         }

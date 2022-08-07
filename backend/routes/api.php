@@ -31,6 +31,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('products', ProductController::class)->except(['create', 'edit']);
     Route::post('purchase-order', [PurchaseOrderController::class, 'store'])->name('purchase-order.store');
     Route::post('sale-order', [SaleOrderController::class, 'store'])->name('sale-order.store');
+    Route::post('sale-order/{order}/approve', [SaleOrderController::class, 'approve'])->name('sale-order.approve');
 
 });
 

@@ -54,5 +54,14 @@ class Order extends Model
         return self::create($data);
     }
 
+    /**
+     * @param $status
+     * @return bool
+     */
+    public function updateStatus($status): bool
+    {
+        return $this->update(['status' => $status]);
+    }
+
 
 }
