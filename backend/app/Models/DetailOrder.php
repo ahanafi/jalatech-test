@@ -22,9 +22,14 @@ class DetailOrder extends Model
     {
         parent::boot();
         DetailOrder::saved(function ($detail) {
-            $detail->product()->update([
-                'stock' => $detail->product->stock + $detail->qty
-            ]);
+
+            // Update qty of product when order type is purchase
+            if ($detail->order->type === Order::PURCHASE) {
+                $detail->product()->update([
+                    'stock' => $detail->product->stock + $detail->qty
+                ]);
+            }
+
         });
     }
 
