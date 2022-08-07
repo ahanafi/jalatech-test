@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('invoice_number')->unique();
-            $table->string('customer_name');
+            $table->string('customer_name')->nullable();
             $table->date('date');
             $table->enum('type', ['PURCHASE', 'SALE'])->default('SALE');
             $table->enum('status', ['PENDING', 'APPROVED'])->default('PENDING');
