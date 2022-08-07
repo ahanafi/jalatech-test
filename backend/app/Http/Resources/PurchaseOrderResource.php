@@ -19,7 +19,7 @@ class PurchaseOrderResource extends JsonResource
             'order_id' => $this->id,
             'invoice_number' => $this->invoice_number,
             'type' => $this->type,
-            'data' => $this->date,
+            'date' => $this->date,
             'details' => DetailOrderResource::collection($this->details)
         ];
     }
