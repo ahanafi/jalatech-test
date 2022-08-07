@@ -50,6 +50,7 @@ class Order extends Model
     public static function createSaleOrder(array $data): mixed
     {
         $data['type'] = self::SALE;
+        $data['status'] = self::PENDING;
         return self::create($data);
     }
 

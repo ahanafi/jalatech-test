@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseOrderController;
+use App\Http\Controllers\SaleOrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,10 +29,8 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::resource('products', ProductController::class)->except(['create', 'edit']);
-    Route::resource('purchase-order', PurchaseOrderController::class);
-
-
-
+    Route::post('purchase-order', [PurchaseOrderController::class, 'store'])->name('purchase-order.store');
+    Route::post('sale-order', [SaleOrderController::class, 'store'])->name('sale-order.store');
 
 });
 
