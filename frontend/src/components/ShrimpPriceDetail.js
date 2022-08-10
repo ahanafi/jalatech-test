@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ShrimpPriceDetail = () => {
+const ShrimpPriceDetail = ({ id }) => {
     return (
         <></>
     );

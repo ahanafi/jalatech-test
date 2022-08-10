@@ -6,12 +6,9 @@ import {
     Select
 } from '@chakra-ui/react';
 
-import regions from './../data/regions.json';
-import shrimpPrices from './../data/shrimp_prices.json';
-
 const species = ['Vannamei'];
 
-const FilterBar = () => {
+const FilterBar = ({ regions, shrimpPrices }) => {
     const [sizes, setSizes] = useState([]);
     const filterSize = () => Object.keys(shrimpPrices.data[0]).filter( key => key.indexOf("size_") > -1);
     
